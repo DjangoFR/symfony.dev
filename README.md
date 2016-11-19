@@ -14,6 +14,7 @@ docker
 docker-compose (>= 1.6)
   -> $ ./bin/docker-compose-install.sh
 wget
+mysql-client
 phpstorm
   -> https://www.jetbrains.com/phpstorm/download/download-thanks.html?platform=linux
   or
