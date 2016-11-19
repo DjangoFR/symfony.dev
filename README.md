@@ -37,4 +37,12 @@ $ ./bin/symfony.sh
 ```bash
 $ ./bin/mysql.sh
 ```
+### open TTY to one of containers
+
+```bash
+$ ./bin/mysql.sh
+```
+and follow instructions.
+
+
 
