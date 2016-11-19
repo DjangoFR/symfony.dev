@@ -15,6 +15,9 @@ docker-compose (>= 1.6)
   -> $ ./bin/docker-compose-install.sh
 wget
 phpstorm
+  -> https://www.jetbrains.com/phpstorm/download/download-thanks.html?platform=linux
+  or
+  -> https://confluence.jetbrains.com/display/PhpStorm/PhpStorm+Early+Access+Program
 ```
 
 # Add following to /etc/hosts
