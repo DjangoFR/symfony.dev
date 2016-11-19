@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+  db:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+    volumes:
+      - ./storage/mysql:/var/lib/mysql
+
+  php-fpm:
+    build: ./docker/php-fpm
+    expose:
+      - "9000"
+    volumes:
+      - ./:/var/www
+#      - ./symfony:/var/www/symfony
+#      - ./symfony/app/logs:/var/www/symfony/app/logs
+    links:
+      - db
+
+  nginx:
+    build: ./docker/nginx
+    ports:
+      - "80:80"
+    links:
+      - php-fpm
+    volumes_from:
+      - php-fpm
+    volumes:
+      - ./logs/nginx/:/var/log/nginx
+
+#  test:
+#    image: ubuntu:16.04
+#    tty: true

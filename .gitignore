@@ -1,3 +1,10 @@
+# PhpStorm
+.idea
+
+# Docker
+storage
+logs
+
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
@@ -22,7 +29,7 @@
 # Managed by Composer
 /app/bootstrap.php.cache
 /var/bootstrap.php.cache
-/bin/*
+# /bin/*
 !bin/console
 !bin/symfony_requirements
 /vendor/
