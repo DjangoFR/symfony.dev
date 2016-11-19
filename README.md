@@ -4,7 +4,7 @@ Symfony on Docker
 First, clone this repository:
 
 ```bash
-$ git clone git@github.com:DjangoFR/symfony.dev.git
+$ git clone https://github.com/DjangoFR/symfony.dev.git
 ```
 
 # Tools you need on your host
