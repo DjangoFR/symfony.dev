@@ -40,7 +40,7 @@ $ ./bin/mysql.sh
 ### open TTY to one of containers
 
 ```bash
-$ ./bin/mysql.sh
+$ ./bin/tty.sh
 ```
 and follow instructions.
 
