@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 RUN apt-get update
-RUN apt-get install -y curl \
+RUN apt-get install -y curl nano zip git \
     php-fpm \
     php-apcu \
     php-curl \
@@ -15,6 +15,7 @@ RUN apt-get install -y curl \
     php-opcache \
     php-mysql \
     php-mysqli \
+    php-mbstring \
     php-xml
 
 # RUN rm -rf /var/cache/apt/archives/* && rm -rf /tmp/*

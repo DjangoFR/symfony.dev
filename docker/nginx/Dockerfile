@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils && apt-get install -y nginx
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils && apt-get install -y nano nginx
 # RUN rm -rf /var/cache/apt/archives/* && rm -rf /tmp/*
 
 ADD nginx.conf /etc/nginx/
