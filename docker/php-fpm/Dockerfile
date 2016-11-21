@@ -1,5 +1,7 @@
 FROM ubuntu:16.04
 
+ENV TERM xterm
+
 RUN apt-get update
 RUN apt-get install -y curl nano zip git \
     php-fpm \
@@ -16,7 +18,8 @@ RUN apt-get install -y curl nano zip git \
     php-mysql \
     php-mysqli \
     php-mbstring \
-    php-xml
+    php-xml \
+    php-xdebug
 
 # RUN rm -rf /var/cache/apt/archives/* && rm -rf /tmp/*
 
