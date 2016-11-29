@@ -19,6 +19,7 @@ RUN apt-get install -y curl nano zip git \
     php-mysqli \
     php-mbstring \
     php-xml \
+    php-odbc \
     php-xdebug
 
 # RUN rm -rf /var/cache/apt/archives/* && rm -rf /tmp/*
