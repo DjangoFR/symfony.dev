@@ -19,8 +19,9 @@ RUN apt-get install -y curl nano zip git \
     php-mysqli \
     php-mbstring \
     php-xml \
-    php-odbc \
-    php-xdebug
+    php-sybase \
+    php-xdebug \
+    wget
 
 # RUN rm -rf /var/cache/apt/archives/* && rm -rf /tmp/*
 
@@ -43,7 +44,7 @@ RUN mv composer.phar /usr/local/bin/composer
 # php-fpm start
 RUN service php7.0-fpm start
 RUN service php7.0-fpm stop
-CMD ["/usr/sbin/php-fpm7.0", "-F"]
+CMD ["/usr/sbin/php-fpm7.0", "-FR"]
 
 # /var/www/symfony
 ADD symfony-install.sh /symfony-install.sh
