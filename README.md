@@ -11,7 +11,7 @@ $ git clone https://github.com/DjangoFR/symfony.dev.git
 
 ```text
 docker
-docker-compose (>= 1.6)
+docker-compose ( min version >= 1.6)
   -> $ ./bin/docker-compose-install.sh
 wget
 mysql-client
@@ -29,6 +29,7 @@ phpstorm
 # Installation
 
 ```bash
+$ ./bin/dockremap.sh
 $ ./bin/build.sh 
 $ ./bin/start.sh 
 $ ./bin/symfony.sh 
@@ -47,6 +48,3 @@ $ ./bin/mysql.sh
 $ ./bin/tty.sh
 ```
 and follow instructions.
-
-
-
