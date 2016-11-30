@@ -3,7 +3,7 @@
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 USER_UID=$(id -u)
 
-## Check for it
+## root check
 [ $USER_UID -eq 0 ] && { echo -e "\n\nRun this script as NON ROOT USER, please.\n\n"; exit 1; }
 
 $SCRIPTDIR/stop.sh
