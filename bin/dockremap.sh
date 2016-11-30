@@ -22,6 +22,7 @@ EOF
 sudo bash <<EOF
 rm -rf $SCRIPTDIR/../symfony/app/cache/*
 rm -rf $SCRIPTDIR/../storage/mysql/*
+chown $USER.$USER "$SCRIPTDIR/../symfony/" -R
 chown $USER.$USER "$SCRIPTDIR/../storage/" -R
 chown $USER.$USER "$SCRIPTDIR/../logs/" -R
 EOF
