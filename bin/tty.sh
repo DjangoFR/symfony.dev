@@ -1,15 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $SCRIPT_DIR/lib.sh
 
 if [ $# -eq 0 ] 
 then
     SCRIPT=`basename "$0"`
-    echo -e "\n\tusage: $SCRIPT <CONTAINER ID>\n"
+    echo -e "\n\tusage: $SCRIPT_NAME <CONTAINER ID>\n"
     docker ps
     echo -e "\n\n"
     exit 4
 fi
-
 
 CONTAINER=$1
 RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
@@ -24,7 +25,7 @@ if [ "$RUNNING" == "false" ]; then
   exit 2
 fi
 
-GHOST=$(docker inspect --format="{{ .State.Ghost }}" $CONTAINER)
+GHOST=$(docker inspect --format="{{ .State.Ghost }}" $CONTAINER 2> /dev/null)
 
 if [ "$GHOST" == "true" ]; then
   echo "WARNING - $CONTAINER has been ghosted."

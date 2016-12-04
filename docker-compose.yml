@@ -14,13 +14,14 @@ services:
       - ./storage/mysql:/var/lib/mysql
 
   php-fpm:
-    build: ./docker/php-fpm
-    expose:
-      - "9000"
+    build:
+     context: ./docker/php-fpm
+     dockerfile: ubuntu/Dockerfile
+#    ports:
+#      - "9009:9009"
     volumes:
       - ./:/var/www
-#      - ./symfony:/var/www/symfony
-#      - ./symfony/app/logs:/var/www/symfony/app/logs
+      - ./logs/xdebug/:/var/log/xdebug
     links:
       - db
 
@@ -36,5 +37,5 @@ services:
       - ./logs/nginx/:/var/log/nginx
 
 #  test:
-#    image: ubuntu:16.04
+#    image: debian:jessie-slim
 #    tty: true

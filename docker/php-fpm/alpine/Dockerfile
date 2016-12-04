@@ -31,6 +31,6 @@ ADD symfony.pool.conf /etc/php5/fpm.d/
 # WORKDIR /var/www
 # ENTRYPOINT ["/symfony-install.sh"]
 
-CMD ["php-fpm", "-F"]
+CMD ["php-fpm", "-FR"]
 
 EXPOSE 9000

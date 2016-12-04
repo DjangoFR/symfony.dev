@@ -1,12 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-USER_UID=$(id -u)
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $SCRIPT_DIR/lib.sh
 
 ## root check
 [ $USER_UID -eq 0 ] && { echo -e "\n\nRun this script as NON ROOT USER, please.\n\n"; exit 1; }
-
-$SCRIPTDIR/stop.sh
+exit 1
+$SCRIPT_DIR/stop.sh
 
 sudo id -u dockremap &>/dev/null || sudo useradd dockremap
 
@@ -20,11 +20,11 @@ echo '{"userns-remap": "dockremap"}' > /etc/docker/daemon.json
 EOF
 
 sudo bash <<EOF
-rm -rf $SCRIPTDIR/../symfony/app/cache/*
-rm -rf $SCRIPTDIR/../storage/mysql/*
-chown $USER.$USER "$SCRIPTDIR/../symfony/" -R
-chown $USER.$USER "$SCRIPTDIR/../storage/" -R
-chown $USER.$USER "$SCRIPTDIR/../logs/" -R
+rm -rf $SCRIPT_DIR/../symfony/app/cache/*
+rm -rf $SCRIPT_DIR/../storage/mysql/*
+chown $USER.$USER "$SCRIPT_DIR/../symfony/" -R
+chown $USER.$USER "$SCRIPT_DIR/../storage/" -R
+chown $USER.$USER "$SCRIPT_DIR/../logs/" -R
 EOF
 
 sudo systemctl daemon-reload
