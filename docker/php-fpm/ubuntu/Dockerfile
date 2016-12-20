@@ -1,9 +1,18 @@
 FROM ubuntu:16.04
 
 ENV TERM xterm
+ENV DEBIAN_FRONTEND noninteractive
+# msodbcsql - accept license
+ENV ACCEPT_EULA y
 
 RUN apt-get update
-RUN apt-get install -y curl wget nano zip git
+RUN apt-get install -y apt-transport-https curl wget nano zip git
+
+# MS SQL Server tools - sources
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+RUN curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-tools.list
+RUN apt-get update
+
 RUN apt-get install -y \
     php-fpm \
     php-apcu \
@@ -20,8 +29,38 @@ RUN apt-get install -y \
     php-mysqli \
     php-mbstring \
     php-xml \
-    php-sybase \
-    php-xdebug
+    php-xdebug \
+    php-dev
+
+# MS SQL Server tools - installation
+RUN apt-get install -y \
+    mssql-tools \
+    unixodbc-dev-utf16 \
+    msodbcsql
+
+# sqlcmd needs (en_US.UTF-8) to run
+RUN locale-gen en_US.UTF-8
+#RUN locale-gen en_US.UTF-8 && update-locale LANG=de_DE.UTF-8
+
+# MS SQL Server driver - build
+RUN pecl install sqlsrv-4.0.7
+RUN pecl install pdo_sqlsrv-4.0.7
+#
+# https://msdn.microsoft.com/en-us/library/hh568454(v=sql.110).aspx
+# Enable the connection log by verifying that your
+# odbcinst.ini file contains the section and these items:
+#
+# [ODBC]
+# Trace = Yes
+# TraceFile = /var/www/logs/odbc.log
+
+# MS SQL Server driver - configuration
+RUN echo "extension=/usr/lib/php/20151012/sqlsrv.so" >> /etc/php/7.0/mods-available/sqlsrv.ini
+RUN echo "extension=/usr/lib/php/20151012/pdo_sqlsrv.so" >> /etc/php/7.0/mods-available/pdo_sqlsrv.ini
+RUN ln -s /etc/php/7.0/mods-available/sqlsrv.ini /etc/php/7.0/fpm/conf.d/20-sqlsrv.ini
+RUN ln -s /etc/php/7.0/mods-available/pdo_sqlsrv.ini /etc/php/7.0/fpm/conf.d/20-pdo_sqlsrv.ini
+RUN ln -s /etc/php/7.0/mods-available/sqlsrv.ini /etc/php/7.0/cli/conf.d/20-sqlsrv.ini
+RUN ln -s /etc/php/7.0/mods-available/pdo_sqlsrv.ini /etc/php/7.0/cli/20-pdo_sqlsrv.ini
 
 RUN apt-get clean
 RUN rm -rf /var/cache/apt/archives/* && rm -rf /tmp/*
@@ -34,7 +73,7 @@ ADD symfony.ini /etc/php/7.0/fpm/conf.d/
 RUN rm /etc/php/7.0/fpm/pool.d/*
 ADD symfony.pool.conf /etc/php/7.0/fpm/pool.d/
 
-# xconfig
+# xdebug config
 RUN mkdir -p /var/log/xdebug
 RUN touch /etc/php/7.0/fpm/conf.d/20-xdebug.ini; \
     echo "xdebug.idekey = PHPSTORM" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini; \
