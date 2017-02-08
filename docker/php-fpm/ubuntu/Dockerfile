@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV ACCEPT_EULA y
 
 RUN apt-get update
-RUN apt-get install -y apt-transport-https curl wget nano zip git
+RUN apt-get install -y apt-utils apt-transport-https curl wget nano zip git
 
 # MS SQL Server tools - sources
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
@@ -33,18 +33,16 @@ RUN apt-get install -y \
     php-dev
 
 # MS SQL Server tools - installation
-RUN apt-get install -y \
-    mssql-tools \
-    unixodbc-dev-utf16 \
-    msodbcsql
+# RUN apt-get install -y msodbcsql mssql-tools
+RUN apt-get install -y unixodbc-dev-utf16
 
 # sqlcmd needs (en_US.UTF-8) to run
 RUN locale-gen en_US.UTF-8
 #RUN locale-gen en_US.UTF-8 && update-locale LANG=de_DE.UTF-8
 
 # MS SQL Server driver - build
-RUN pecl install sqlsrv-4.0.7
-RUN pecl install pdo_sqlsrv-4.0.7
+RUN pecl install sqlsrv-4.0.8
+RUN pecl install pdo_sqlsrv-4.0.8
 #
 # https://msdn.microsoft.com/en-us/library/hh568454(v=sql.110).aspx
 # Enable the connection log by verifying that your
