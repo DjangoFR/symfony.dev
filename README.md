@@ -35,6 +35,11 @@ $ ./bin/start.sh
 $ ./bin/symfony.sh 
 ```
 ---
+# Access your symfony.dev-Box
+```
+http://symfony.dev/app_dev.php/ 
+```
+---
 # Updates
 ```bash
 $ cd symfony.dev
@@ -61,6 +66,12 @@ $ ./bin/mysql.sh
 $ ./bin/tty.sh
 ```
 and follow instructions.
+
+### debug logs
+
+```bash
+$ tail -f ./logs/nginx/*
+```
 
 ### debug in PhpStorm
 [PhpStorm debugger configuration](doc/PHPSTORM.md)
