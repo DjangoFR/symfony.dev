@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV ACCEPT_EULA y
 
 RUN apt-get update
-RUN apt-get install -y apt-utils apt-transport-https curl wget nano zip git
+RUN apt-get install -y apt-utils apt-transport-https curl wget nano zip git iputils-ping mysql-client
 
 # MS SQL Server tools - sources
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -

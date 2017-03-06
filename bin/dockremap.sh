@@ -5,7 +5,7 @@ source $SCRIPT_DIR/lib.sh
 
 ## root check
 [ $USER_UID -eq 0 ] && { echo -e "\n\nRun this script as NON ROOT USER, please.\n\n"; exit 1; }
-exit 1
+
 $SCRIPT_DIR/stop.sh
 
 sudo id -u dockremap &>/dev/null || sudo useradd dockremap

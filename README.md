@@ -60,6 +60,16 @@ $ ./bin/start.sh
 $ ./bin/mysql.sh
 ```
 
+To connect to mysql from host (or db container) use:
+```bash
+mysql -uroot -p
+```
+
+To connect to mysql linked container (e.g. php-fpm):
+```bash
+mysql -h172.17.0.1 -uroot -p
+```
+
 ### open TTY to one of containers
 
 ```bash

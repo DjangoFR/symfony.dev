@@ -2,6 +2,7 @@
 
 SCRIPT_NAME=$(basename "$0")
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+BASE_DIR=$(cd $(dirname "${BASH_SOURCE[0]}")/.. && pwd)
 
 if [ "$SCRIPT_NAME" == "lib.sh" ]
 then
@@ -11,3 +12,6 @@ fi
 USER_UID=$(id -u)
 USER_GID=$(id -g)
 USER_GID_ALL=$(id -G)
+
+CONTAINER_PROJECT_DIR="/var/www"
+CONTAINER_SYMFONY_DIR="$CONTAINER_PROJECT_DIR/symfony"
