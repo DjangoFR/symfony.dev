@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends apt-utils && ap
 
 ADD nginx.conf /etc/nginx/
 ADD symfony.conf /etc/nginx/conf.d/
+ADD subdomains.conf /etc/nginx/conf.d/
 
 RUN echo "upstream php-upstream { server php-fpm:9001; }" > /etc/nginx/conf.d/upstream.conf
 
