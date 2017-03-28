@@ -1,4 +1,10 @@
-symfony
+/symfony/
+st.cms
+st.data
+st.webshop
+st.import
+Saalplan
+saalplan
 
 # PhpStorm
 .idea
@@ -46,9 +52,6 @@ logs
 # PHPUnit
 /app/phpunit.xml
 /phpunit.xml
-
-# Build data
-/build/
 
 # Composer PHAR
 /composer.phar
