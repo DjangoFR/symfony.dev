@@ -34,7 +34,7 @@ RUN apt-get install -y \
 
 # MS SQL Server tools - installation
 # RUN apt-get install -y msodbcsql mssql-tools
-RUN apt-get install -y unixodbc-dev-utf16
+RUN apt-get install -y msodbcsql unixodbc-dev mssql-tools
 
 # sqlcmd needs (en_US.UTF-8) to run
 RUN locale-gen en_US.UTF-8
