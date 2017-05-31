@@ -6,8 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV ACCEPT_EULA y
 
 RUN apt-get update
-RUN apt-get install -y apt-utils apt-transport-https curl wget nano zip git
-
+RUN apt-get install -y apt-utils apt-transport-https curl wget nano zip git 
 # MS SQL Server tools - sources
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-tools.list
@@ -32,9 +31,11 @@ RUN apt-get install -y \
     php-xdebug \
     php-dev
 
+RUN apt-get update
+RUN apt-get install -y librsvg2-bin
 # MS SQL Server tools - installation
 # RUN apt-get install -y msodbcsql mssql-tools
-RUN apt-get install -y unixodbc-dev-utf16
+RUN apt-get install -y msodbcsql unixodbc-dev mssql-tools
 
 # sqlcmd needs (en_US.UTF-8) to run
 RUN locale-gen en_US.UTF-8
@@ -43,6 +44,21 @@ RUN locale-gen en_US.UTF-8
 # MS SQL Server driver - build
 RUN pecl install sqlsrv-4.0.8
 RUN pecl install pdo_sqlsrv-4.0.8
+
+# librdkafka installation
+RUN apt-get update
+RUN apt-get install -y librdkafka-dev
+
+# php-rdkafka installation
+RUN pecl install rdkafka
+RUN echo "extension=rdkafka.so" >> /etc/php/7.0/cli/php.ini
+RUN echo "extension=/usr/lib/php/20151012/rdkafka.so" >> /etc/php/7.0/mods-available/rdkafka.ini
+RUN ln -s /etc/php/7.0/mods-available/rdkafka.ini /etc/php/7.0/fpm/conf.d/20-rdkafka.ini
+RUN ln -s /etc/php/7.0/mods-available/rdkafka.ini /etc/php/7.0/cli/conf.d/20-rdkafka.ini
+
+RUN echo "post_max_size=32M" >> /etc/php/7.0/cli/php.ini
+RUN echo "post_max_size=32M" >> /etc/php/7.0/fpm/php.ini
+
 #
 # https://msdn.microsoft.com/en-us/library/hh568454(v=sql.110).aspx
 # Enable the connection log by verifying that your
@@ -70,6 +86,11 @@ ADD symfony.ini /etc/php/7.0/fpm/conf.d/
 
 RUN rm /etc/php/7.0/fpm/pool.d/*
 ADD symfony.pool.conf /etc/php/7.0/fpm/pool.d/
+
+RUN mkdir /root/.ssh
+ADD gitlab_dk_id_rsa /root/.ssh/
+ADD config /root/.ssh
+RUN chmod 600 /root/.ssh/gitlab_dk_id_rsa
 
 # xdebug config
 RUN mkdir -p /var/log/xdebug

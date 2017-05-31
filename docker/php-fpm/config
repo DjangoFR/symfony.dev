@@ -1,0 +1,5 @@
+Host ssh-git.starticket.org
+    HostName ssh-git.starticket.org
+    User git
+    port 1022
+    Identityfile /root/.ssh/gitlab_dk_id_rsa
